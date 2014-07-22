@@ -5,10 +5,34 @@ class Pyng:
     def __init__(self):
         #set variables
         self.config = "config.txt"
+        self.dict = {}
 
     def main(self):
-        print("hello world")
+        while(True):
+            cmd = input("Enter Command (generate, new_post, quit): ")
+            if cmd == "generate":
+                self.generate()
+            elif cmd == "new_post":
+                self.new_post()
+            elif cmd == "quit":
+                break
 
+    def generate(self):
+        self.getConfig()
+        print(self.dict)
+
+    def getConfig(self):
+        for line in open(self.config):
+            pair = line.split(":")
+            for i in len(pair):
+                pair[i] = pair[i].strip
+            print(pair)
+                
+            #sekf.dict[x] = y
+
+    def new_post(self):
+        print("new post")
+            
 if __name__ == '__main__':
     Pyng().main()    
 
