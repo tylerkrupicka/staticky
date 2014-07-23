@@ -1,5 +1,6 @@
 import re as regex
 import os
+import datetime
 
 class Pyng:
 
@@ -30,9 +31,10 @@ class Pyng:
 
     def new_post(self):
         print("new post")
+        today = datetime.date.today()
+        date = today.isoformat()
         path = "posts"
         title = input("Title: ")
-        date = input("Date: ")
         os.chdir(path)
         open(title+".txt", "a")
 
