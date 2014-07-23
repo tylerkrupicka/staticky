@@ -1,4 +1,5 @@
 import re as regex
+import os
 
 class Pyng:
 
@@ -29,7 +30,7 @@ class Pyng:
 
     def new_post(self):
         print("new post")
-        path = "/posts"
+        path = "posts"
         title = input("Title: ")
         date = input("Date: ")
         os.chdir(path)
