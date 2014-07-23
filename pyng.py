@@ -1,5 +1,4 @@
 import re as regex
-import os
 
 class Pyng:
 
@@ -29,14 +28,20 @@ class Pyng:
             self.dict[pair[0]] = pair[1]
 
     def new_post(self):
+        print("new post")
         path = "/posts"
         title = input("Title: ")
         date = input("Date: ")
         os.chdir(path)
         open(title+".txt", "a")
-            
+
 if __name__ == '__main__':
-    Pyng().main()    
+    Pyng().main()
 
+class Post:
 
-    
+    def __init__(self):
+        self.title = ""
+        self.link = ""
+        self.date = ""
+        self.content = ""
