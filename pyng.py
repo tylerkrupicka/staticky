@@ -29,9 +29,19 @@ class Pyng:
 
     def new_post(self):
         print("new post")
-            
+
 if __name__ == '__main__':
-    Pyng().main()    
+    Pyng().main()
+
+class Post:
+
+    def __init__(self):
+        self.title = ""
+        self.link = ""
+        self.date = ""
+        self.content = ""
+
+    
 
 
     
