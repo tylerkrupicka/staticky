@@ -38,6 +38,7 @@ class Pyng:
         os.chdir(path)
         file=open(title+".txt", "a")
         file.write(title+"\n"+date)
+        file.close()
 
 if __name__ == '__main__':
     Pyng().main()
