@@ -19,14 +19,12 @@ class Pyng:
 
     def generate(self):
         self.getConfig()
-        print(self.dict)
 
     def getConfig(self):
         for line in open(self.config):
             pair = line.split(": ")
             for i in range(0,len(pair)):
                 pair[i] = pair[i].strip()
-            print(pair)
             self.dict[pair[0]] = pair[1]
 
     def new_post(self):
