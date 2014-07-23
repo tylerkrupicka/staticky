@@ -36,7 +36,8 @@ class Pyng:
         path = "posts"
         title = input("Title: ")
         os.chdir(path)
-        open(title+".txt", "a")
+        file=open(title+".txt", "a")
+        file.write(title+"\n"+date)
 
 if __name__ == '__main__':
     Pyng().main()
