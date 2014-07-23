@@ -23,12 +23,11 @@ class Pyng:
 
     def getConfig(self):
         for line in open(self.config):
-            pair = line.split(":")
-            for i in len(pair):
-                pair[i] = pair[i].strip
+            pair = line.split(": ")
+            for i in range(0,len(pair)):
+                pair[i] = pair[i].strip()
             print(pair)
-                
-            #sekf.dict[x] = y
+            self.dict[pair[0]] = pair[1]
 
     def new_post(self):
         print("new post")
