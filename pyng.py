@@ -38,6 +38,7 @@ class Pyng:
         #generate the site by moving pages and filling in text
         self.getConfig()
         self.loadPosts()
+        self.replaceContent()
 
     def getConfig(self):
         #load all the config variables in to a dictionary
@@ -46,6 +47,7 @@ class Pyng:
             for i in range(0,len(pair)):
                 pair[i] = pair[i].strip()
             self.dict[pair[0]] = pair[1]
+
     def replaceContent(self):
         s=open(index.html)
         for key in self.dict:
