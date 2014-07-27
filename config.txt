@@ -1,4 +1,5 @@
 url: http://tylerkrupicka.com
+year: 2014
 title: Tyler Krupicka
 subtitle: Computer Engineer and Designer
 author: Tyler Krupicka
@@ -7,5 +8,6 @@ about: I'm a programmer, machinist, and 3D printer enthusiast from Newberg, Oreg
 email: tyler.krupicka13@gmail.com
 github: www.github.com/tylerkrupicka
 twitter: www.twitter.com/tkrupicka
+google+: https://plus.google.com/+TylerKrupickaT
 thingiverse: www.thingiverse.com/tylerkrupicka
 google_analytics_id: UA-51635607-1
