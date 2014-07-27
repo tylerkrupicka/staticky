@@ -51,7 +51,7 @@ class Pyng:
     def replaceContent(self):
         s=open(index.html)
         for key in self.dict:
-            m = regex.search(r"\[\[*+\]\])"
+            m = regex.search(r"\[\[*+\]\]")
             n = m[2:-2]
             if n == key:
                 s.replace(m, self.dict[key])
