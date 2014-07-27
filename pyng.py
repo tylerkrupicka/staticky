@@ -74,14 +74,16 @@ class Pyng:
     def new_post(self):
         #create a new post file with the desired header information
         today = datetime.date.today()
-        date = today.isoformat()
+        date = today.strftime('%B %d, %Y')
         title = input("Title: ")
+        valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        filename = ''.join(c for c in title if c in valid_chars)
         os.chdir("posts")
-        file=open(title+".txt", "a")
+        file=open(filename+".txt", "a")
         file.write("Title: " + title + "\n" + "Date: " + date + "\n---\n")
         file.close()
         os.chdir("..")
-        print("Do not edit the post header formatting.")
+        print("Post file created. Be careful editing the post header formatting.")
 
 if __name__ == '__main__':
     Pyng().main()
