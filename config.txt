@@ -1,5 +1,6 @@
 url: http://tylerkrupicka.com
 year: 2014
+all_posts: allPosts.html
 title: Tyler Krupicka
 subtitle: Computer Engineer and Designer
 author: Tyler Krupicka

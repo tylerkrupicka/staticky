@@ -40,6 +40,7 @@ class Pyng:
         self.getConfig()
         self.loadPosts()
         self.createIndex()
+        self.createAllPosts()
         print("Generate Completed.")
 
     def getConfig(self):
@@ -87,6 +88,40 @@ class Pyng:
         index.truncate()
         index.write(page)
         index.close()
+
+    def createAllPosts(self):
+        ap=open("layouts/all_thumb_layout.html", 'r', encoding="utf8")
+        page = ''
+        for a in ap:
+            page += a
+        #replace each of the dictionary keywords
+        for key in self.dict:
+            page = page.replace('[[' + key + ']]',self.dict[key])
+
+        #read thumbnail layouts
+        ptl=open("layouts/post_thumb_layout.html", 'r', encoding="utf8")
+        thumbLayout = ''
+        for a in ptl:
+            thumbLayout += a
+
+        numP = len(self.posts)
+        thumbs = ''
+        for post in self.posts:
+            pL = thumbLayout;
+            pL = pL.replace('[[title]]',post.title)
+            pL = pL.replace('[[date]]',post.date)
+            pL = pL.replace('[[thumbContent]]',post.thumbContent)
+            pL = pL.replace('[[link]]',post.link)
+            thumbs += pL
+
+        page = page.replace('[[post_thumb]]',thumbs)
+            
+        
+        allPosts = open("allPosts.html",'a',encoding="utf8")
+        allPosts.seek(0)
+        allPosts.truncate()
+        allPosts.write(page)
+        allPosts.close()
 
     def loadPosts(self):
         #make each post file a class and then store them in a list
