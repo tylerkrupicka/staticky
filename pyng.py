@@ -38,9 +38,15 @@ class Pyng:
     def generate(self):
         #generate the site by moving pages and filling in text
         self.getConfig()
+        print("Loaded Configuration Variables")
         self.loadPosts()
+        print("Load Post Data")
+        self.createPosts()
+        print("Created Post Pages")
         self.createIndex()
+        print("Create Index.html")
         self.createAllPosts()
+        print("Create All Posts Page")
         print("Generate Completed.")
 
     def getConfig(self):
@@ -143,11 +149,34 @@ class Pyng:
                 content = pl[1].split("<!-- more -->")
                 post.thumbContent = content[0]
                 post.content = pl[1]
+                post.link = "blog/" + filename.strip(".txt") + ".html"
 
                 self.posts.append(post)
 
         #sort the list of posts by date
         self.posts.sort(key=lambda x: x.date, reverse=True)
+
+    def createPosts(self):
+        pl=open("layouts/post_layout.html", 'r', encoding="utf8")
+        page = ''
+        for a in pl:
+            page += a
+        #replace each of the dictionary keywords
+        for key in self.dict:
+            page = page.replace('[[' + key + ']]',self.dict[key])
+        
+        for post in self.posts:
+            pL = page;
+            pL = pL.replace('[[post_title]]',post.title)
+            pL = pL.replace('[[date]]',post.date)
+            pL = pL.replace('[[content]]',post.content)
+            pL = pL.replace('[[link]]',post.link)
+        
+            postFile = open(post.link,'a',encoding="utf8")
+            postFile.seek(0)
+            postFile.truncate()
+            postFile.write(pL)
+            postFile.close()
                     
     def new_post(self):
         #create a new post file with the desired header information
