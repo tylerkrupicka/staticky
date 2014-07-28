@@ -14,6 +14,7 @@ class Post:
         self.link = ""
         self.date = ""
         self.content = ""
+        self.thumbContent = ""
 
 class Pyng:
 
@@ -38,7 +39,8 @@ class Pyng:
         #generate the site by moving pages and filling in text
         self.getConfig()
         self.loadPosts()
-        self.replaceContent()
+        self.createIndex()
+        print("Generate Completed.")
 
     def getConfig(self):
         #load all the config variables in to a dictionary
@@ -48,17 +50,43 @@ class Pyng:
                 pair[i] = pair[i].strip()
             self.dict[pair[0]] = pair[1]
 
-    def replaceContent(self):
-        s=open("index.html", 'r+', encoding="utf8")
+    def createIndex(self):
+        il=open("layouts/index_layout.html", 'r', encoding="utf8")
         page = ''
-        for a in s:
+        for a in il:
             page += a
+        #replace each of the dictionary keywords
         for key in self.dict:
             page = page.replace('[[' + key + ']]',self.dict[key])
-        s.seek(0)
-        s.truncate()
-        s.write(page)
-        s.close()
+
+        #read thumbnail layouts
+        ptl=open("layouts/post_thumb_layout.html", 'r', encoding="utf8")
+        thumbLayout = ''
+        for a in ptl:
+            thumbLayout += a
+
+        maxP = 5
+        numP = len(self.posts)
+        i=0
+        thumbs = ''
+        while i <= numP-1 and i < maxP:
+            post = self.posts[i]
+            pL = thumbLayout;
+            pL = pL.replace('[[title]]',post.title)
+            pL = pL.replace('[[date]]',post.date)
+            pL = pL.replace('[[thumbContent]]',post.thumbContent)
+            pL = pL.replace('[[link]]',post.link)
+            thumbs += pL
+            i += 1
+
+        page = page.replace('[[post_thumb]]',thumbs)
+            
+        
+        index = open("index.html",'a',encoding="utf8")
+        index.seek(0)
+        index.truncate()
+        index.write(page)
+        index.close()
 
     def loadPosts(self):
         #make each post file a class and then store them in a list
@@ -77,6 +105,8 @@ class Pyng:
                 #determine title and date
                 post.title = head[0].replace("Title: ", '')
                 post.date = head[1]
+                content = pl[1].split("<!-- more -->")
+                post.thumbContent = content[0]
                 post.content = pl[1]
 
                 self.posts.append(post)
@@ -87,7 +117,7 @@ class Pyng:
     def new_post(self):
         #create a new post file with the desired header information
         today = datetime.date.today()
-        date = today.strftime('%B %d, %Y')
+        date = today.isoformat()
         title = input("Title: ")
         valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         filename = ''.join(c for c in title if c in valid_chars)
