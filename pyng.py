@@ -131,6 +131,7 @@ class Pyng:
 
     def loadPosts(self):
         #make each post file a class and then store them in a list
+        self.posts = []
         for filename in os.listdir("posts"):
             #dont add the git ignore
             if filename == ".gitignore":
