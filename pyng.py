@@ -49,14 +49,16 @@ class Pyng:
             self.dict[pair[0]] = pair[1]
 
     def replaceContent(self):
-        s=open(index.html)
+        s=open("index.html", 'r+', encoding="utf8")
+        page = ''
+        for a in s:
+            page += a
         for key in self.dict:
-            m = regex.search(r"\[\[*+\]\])"
-            n = m[2:-2]
-            if n == key:
-                s.replace(m, self.dict[key])
-
-
+            page = page.replace('[[' + key + ']]',self.dict[key])
+        s.seek(0)
+        s.truncate()
+        s.write(page)
+        s.close()
 
     def loadPosts(self):
         #make each post file a class and then store them in a list
