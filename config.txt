@@ -1,14 +1,13 @@
-url: http://tylerkrupicka.com
+url: https://github.com/tylerkrupicka/staticky
 year: 2014
 all_posts: allPosts.html
-title: Tyler Krupicka
-subtitle: Computer Engineer and Designer
+title: Staticky
+subtitle: Python static site builder
 author: Tyler Krupicka
 search: https://www.google.com/search
-about: I'm a programmer, machinist, and 3D printer enthusiast from Newberg, Oregon. I'm currently studying computer engineering at Rochester Institute of Technology in Rochester, New York.<br> Here's my <a href='assets/resume.pdf'>Resume</a>.
-email: tyler.krupicka13@gmail.com
-github: http://www.github.com/tylerkrupicka
-twitter: http://twitter.com/tkrupicka
-google+: https://plus.google.com/+TylerKrupickaT
-thingiverse: http://thingiverse.com/tylerkrupicka
-google_analytics_id: UA-51635607-1
+about: Staticky is a simple static site builder that uses a set of layouts and configuration variables to quickly populate page layouts with content.
+email: none
+github: none
+twitter: none
+google+: none
+google_analytics_id: none
