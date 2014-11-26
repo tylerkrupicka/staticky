@@ -3,8 +3,8 @@ import os
 import datetime
 import time
 """
-pyng is a static site generator
-Created by: Tyler Krupicka and James Dolan
+Staticky is a static site generator
+Created by: Tyler Krupicka with help from James Dolan
 """
 
 class Post:
@@ -28,30 +28,32 @@ class Staticky:
         self.posts = []
         self.thumbs = []
         self.valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        self.previewing = False
 
     def main(self):
         self.setup()
         #ask the user what task to perform until quit
         while(True):
-            cmd = input("Enter Command (generate, new_post, preview, quit): ")
+            cmd = input("Enter Command (generate, new_post, new_page, preview, quit): ")
             if cmd == "generate":
                 self.generate()
             elif cmd == "new_post":
                 self.new_post()
             elif cmd == "preview":
                 self.preview()
+            elif cmd == "new_page":
+                self.new_page()
             elif cmd == "quit":
                 break
 
     def preview(self):
         print("Previewing. Press Ctrl-C to Exit.")
+        self.previewing = True
         while True:
             time.sleep(2)
             self.getConfig()
             self.loadPosts()
-            self.createPosts()
-            self.createIndex()
-            self.createAllPosts()        
+            self.createPages()        
     
     def generate(self):
         #generate the site by moving pages and filling in text
@@ -60,13 +62,11 @@ class Staticky:
         self.loadElements()
         print("Elements Loaded")
         self.loadPosts()
-        print("Load Post Data")
+        print("Loaded Post Data")
+        print("Creating Post Files")
         self.createPosts()
-        print("Created Post Pages")
+        print("Creating Pages")
         self.createPages()
-        #print("Create Index.html")
-        #self.createAllPosts()
-        #print("Create All Posts Page")
         print("Generate Completed.")
 
     def getConfig(self):
@@ -86,6 +86,7 @@ class Staticky:
             self.elements[name] = element
 
     def createThumbs(self):
+        self.thumbs = []
         #read thumbnail layouts
         ptl=open("layouts/elements/post_thumb.html", 'r', encoding="utf8")
         thumbLayout = ''
@@ -137,7 +138,8 @@ class Staticky:
                 f.truncate()
                 f.write(page)
                 f.close()
-                print("     Created " + filename)
+                if self.previewing == False:
+                    print("     Created " + filename)
 
     def loadPosts(self):
         #make each post file a class and then store them in a list
@@ -194,7 +196,10 @@ class Staticky:
             postFile.truncate()
             postFile.write(pL)
             postFile.close()
-                    
+
+            if self.previewing == False:
+                    print("     Created " + post.title)
+            
     def new_post(self):
         #create a new post file with the desired header information
         today = datetime.date.today()
@@ -209,6 +214,15 @@ class Staticky:
         os.chdir("..")
         print("Post file created. Be careful editing the post header formatting.")
 
+    def new_page(self):
+        title = input("Page filename (no extension): ")
+        filename = ''.join(c for c in title if c in self.valid_chars)
+        #create page
+        file = open("layouts/" + filename + ".html",'a',encoding="utf8")
+        file.write(" ")
+        file.close()
+        print("Page created in the layouts folder.")
+        
     def setup(self):
         if len(os.listdir(".")) == 1:
             choice = input("Setup Directory? (y/n): ")
@@ -247,7 +261,7 @@ class Staticky:
                 file.write(" ")
                 file.close()
                 #create post
-                file = open("layouts/post.html",'a',encoding="utf8")
+                file = open("layouts/elements/post.html",'a',encoding="utf8")
                 file.write(" ")
                 file.close()
                 
