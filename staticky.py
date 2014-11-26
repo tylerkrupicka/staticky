@@ -15,6 +15,7 @@ class Post:
         self.link = ""
         self.date = ""
         self.content = ""
+        self.thumbnail = ""
         self.thumbContent = ""
 
 class Staticky:
@@ -157,11 +158,13 @@ class Staticky:
                 for line in open("posts/" + filename):
                     p += line.strip()
                 pl = p.split("---")
-                head = pl[0].split("Date: ")
+                t = pl[0].split("Date: ")
+                t2 = t[1].split("Thumbnail:")
 
                 #determine title and date
-                post.title = head[0].replace("Title: ", '')
-                post.date = head[1]
+                post.title = t[0].replace("Title: ", '')
+                post.date = t2[0].replace("Date: ", '')
+                post.thumbnail = t2[1]
                 content = pl[1].split("<!-- more -->")
                 post.thumbContent = content[0]
                 post.content = pl[1]
@@ -201,10 +204,11 @@ class Staticky:
         today = datetime.date.today()
         date = today.isoformat()
         title = input("Title: ")
+        thumbnail = input("Thumbnail (hit enter for none): ")
         filename = ''.join(c for c in title if c in self.valid_chars)
         os.chdir("posts")
         file=open(filename+".txt", "a")
-        file.write("Title: " + title + "\n" + "Date: " + date + "\n---\n")
+        file.write("Title: " + title + "\n" + "Date: " + date + "\n" + "Thumbnail: " + thumbnail + "\n---\n")
         file.close()
         os.chdir("..")
         print("Post file created. Be careful editing the post header formatting.")

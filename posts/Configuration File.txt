@@ -1,5 +1,6 @@
 Title: Configuration File
 Date: 2014-07-28
+Thumbnail: 
 ---
 <p>
 	The config.txt file that is included with staticky allows for the creation of variables for populating the site. Each value stored in the config can be used to replace a value surrounded by double square brackets in the layout. For example, the site "title" value in the config file will replace anywhere "[[title]]" is placed in the site's layout files. 

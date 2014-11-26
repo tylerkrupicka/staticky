@@ -1,5 +1,6 @@
 Title: Using the Python File
 Date: 2014-07-29
+Thumbnail:  
 ---
 <p>
 	The python file has three main commands:<br />
