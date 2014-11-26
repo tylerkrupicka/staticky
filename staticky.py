@@ -27,6 +27,7 @@ class Staticky:
         self.valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
     def main(self):
+        self.setup()
         #ask the user what task to perform until quit
         while(True):
             cmd = input("Enter Command (generate, new_post, preview, quit): ")
@@ -207,6 +208,19 @@ class Staticky:
         file.close()
         os.chdir("..")
         print("Post file created. Be careful editing the post header formatting.")
+
+    def setup(self):
+        if len(os.listdir(".")) == 1:
+            choice = input("Setup Directory? (y/n): ")
+            if choice == "y":
+                os.mkdir("blog")
+                os.mkdir("images")
+                os.mkdir("assets")
+                os.mkdir("layouts")
+                os.mkdir("layouts/elements")
+                os.mkdir("posts")
+                os.mkdir("css")
+                print("Setup Complete.")
 
 if __name__ == '__main__':
     Staticky().main()
