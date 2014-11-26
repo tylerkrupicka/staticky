@@ -24,7 +24,9 @@ class Staticky:
         #variables
         self.config = "config.txt"
         self.dict = {}
+        self.elements = {}
         self.posts = []
+        self.thumbs = []
         self.valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
     def main(self):
@@ -55,14 +57,16 @@ class Staticky:
         #generate the site by moving pages and filling in text
         self.getConfig()
         print("Loaded Configuration Variables")
+        self.loadElements()
+        print("Elements Loaded")
         self.loadPosts()
         print("Load Post Data")
         self.createPosts()
         print("Created Post Pages")
-        self.createIndex()
-        print("Create Index.html")
-        self.createAllPosts()
-        print("Create All Posts Page")
+        self.createPages()
+        #print("Create Index.html")
+        #self.createAllPosts()
+        #print("Create All Posts Page")
         print("Generate Completed.")
 
     def getConfig(self):
@@ -73,6 +77,68 @@ class Staticky:
                 pair[i] = pair[i].strip()
             self.dict[pair[0]] = pair[1]
 
+    def loadElements(self):
+        for filename in os.listdir("layouts/elements"):
+            name = filename.replace(".html","")
+            element = ""
+            for line in open("layouts/elements/" + filename):
+                element += line
+            self.elements[name] = element
+
+    def createThumbs(self):
+        #read thumbnail layouts
+        ptl=open("layouts/elements/post_thumb.html", 'r', encoding="utf8")
+        thumbLayout = ''
+        for a in ptl:
+            thumbLayout += a
+        thumbs = ''
+        for post in self.posts:
+            pL = thumbLayout;
+            pL = pL.replace('[[post.title]]',post.title)
+            pL = pL.replace('[[post.date]]',post.date)
+            pL = pL.replace('[[post.thumbContent]]',post.thumbContent)
+            pL = pL.replace('[[post.link]]',post.link)
+            pL = pL.replace('[[post.thumbnail]]',post.thumbnail)
+            self.thumbs.append(pL)
+    
+    def createPages(self):
+        for filename in os.listdir("layouts/"):
+            if filename == "elements":
+                pass
+            else:
+                file = open("layouts/" + filename, 'r', encoding="utf8")
+                page = ''
+                #propigate page
+                for a in file:
+                    page += a
+                #replace config keywords
+                for key in self.dict:
+                    page = page.replace('[[' + key + ']]',self.dict[key])
+                #thumbs
+                self.createThumbs()
+                #limit page length
+                limitThumbs = ""
+                for i in range(int(self.dict["num_thumb"])):
+                    limitThumbs += self.thumbs[i]
+                #all thumbs
+                allThumbs = ""
+                for thumb in self.thumbs:
+                    allThumbs += thumb
+                self.elements["post_thumb_all"] = allThumbs
+                self.elements["post_thumb"] = limitThumbs
+
+                #replace elements
+                for element in self.elements:
+                    page = page.replace('[[' + element + ']]',self.elements[element])
+
+                #create file
+                f = open(filename,'a',encoding="utf8")
+                f.seek(0)
+                f.truncate()
+                f.write(page)
+                f.close()
+                print("Created " + filename)
+                        
     def createIndex(self):
         il=open("layouts/index_layout.html", 'r', encoding="utf8")
         page = ''
@@ -165,6 +231,7 @@ class Staticky:
                 post.title = t[0].replace("Title: ", '')
                 post.date = t2[0].replace("Date: ", '')
                 post.thumbnail = t2[1]
+                post.thumbnail = post.thumbnail.strip()
                 content = pl[1].split("<!-- more -->")
                 post.thumbContent = content[0]
                 post.content = pl[1]
@@ -178,7 +245,7 @@ class Staticky:
         self.posts.sort(key=lambda x: x.date, reverse=True)
 
     def createPosts(self):
-        pl=open("layouts/post_layout.html", 'r', encoding="utf8")
+        pl=open("layouts/elements/post.html", 'r', encoding="utf8")
         page = ''
         for a in pl:
             page += a
@@ -188,10 +255,11 @@ class Staticky:
         
         for post in self.posts:
             pL = page;
-            pL = pL.replace('[[post_title]]',post.title)
-            pL = pL.replace('[[date]]',post.date)
-            pL = pL.replace('[[content]]',post.content)
-            pL = pL.replace('[[link]]',post.link)
+            pL = pL.replace('[[post.title]]',post.title)
+            pL = pL.replace('[[post.date]]',post.date)
+            pL = pL.replace('[[post.content]]',post.content)
+            pL = pL.replace('[[post.link]]',post.link)
+            pL = pL.replace('[[post.thumbnail]]',post.thumbnail)
         
             postFile = open(post.link,'a',encoding="utf8")
             postFile.seek(0)

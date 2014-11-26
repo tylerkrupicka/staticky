@@ -4,6 +4,7 @@ all_posts: allPosts.html
 title: Staticky
 subtitle: Python static site builder
 author: Tyler Krupicka
+num_thumb: 5
 search: https://www.google.com/search
 about: Staticky is a simple static site builder that uses a set of layouts and configuration variables to quickly populate page layouts with content.
 email: none
