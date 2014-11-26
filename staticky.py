@@ -17,13 +17,14 @@ class Post:
         self.content = ""
         self.thumbContent = ""
 
-class Pyng:
+class Staticky:
 
     def __init__(self):
         #variables
         self.config = "config.txt"
         self.dict = {}
         self.posts = []
+        self.valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
     def main(self):
         #ask the user what task to perform until quit
@@ -163,7 +164,9 @@ class Pyng:
                 content = pl[1].split("<!-- more -->")
                 post.thumbContent = content[0]
                 post.content = pl[1]
-                post.link = "blog/" + filename.strip(".txt") + ".html"
+                link = ''.join(c for c in post.title if c in self.valid_chars)
+                link = link.replace(" ","-")
+                post.link = "blog/" + link + ".html"
 
                 self.posts.append(post)
 
@@ -197,8 +200,7 @@ class Pyng:
         today = datetime.date.today()
         date = today.isoformat()
         title = input("Title: ")
-        valid_chars = '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        filename = ''.join(c for c in title if c in valid_chars)
+        filename = ''.join(c for c in title if c in self.valid_chars)
         os.chdir("posts")
         file=open(filename+".txt", "a")
         file.write("Title: " + title + "\n" + "Date: " + date + "\n---\n")
@@ -207,4 +209,4 @@ class Pyng:
         print("Post file created. Be careful editing the post header formatting.")
 
 if __name__ == '__main__':
-    Pyng().main()
+    Staticky().main()
