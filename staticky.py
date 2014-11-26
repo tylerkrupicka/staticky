@@ -112,15 +112,13 @@ class Staticky:
                 #propigate page
                 for a in file:
                     page += a
-                #replace config keywords
-                for key in self.dict:
-                    page = page.replace('[[' + key + ']]',self.dict[key])
                 #thumbs
                 self.createThumbs()
                 #limit page length
                 limitThumbs = ""
                 for i in range(int(self.dict["num_thumb"])):
-                    limitThumbs += self.thumbs[i]
+                    if len(self.thumbs) >= i-1 and len(self.thumbs) != 0:
+                        limitThumbs += self.thumbs[i]
                 #all thumbs
                 allThumbs = ""
                 for thumb in self.thumbs:
@@ -132,6 +130,10 @@ class Staticky:
                 for element in self.elements:
                     page = page.replace('[[' + element + ']]',self.elements[element])
 
+                #replace config keywords
+                for key in self.dict:
+                    page = page.replace('[[' + key + ']]',self.dict[key])
+                
                 #create file
                 f = open(filename,'a',encoding="utf8")
                 f.seek(0)

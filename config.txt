@@ -1,0 +1,12 @@
+url: https://github.com/tylerkrupicka/staticky
+year: 2014
+title: Staticky
+subtitle: Python static site builder
+author: Tyler Krupicka
+num_thumb: 5
+about: Staticky is a simple static site builder that uses a set of layouts and configuration variables to quickly populate page layouts with content.
+email: none
+github: none
+twitter: none
+google+: none
+google_analytics_id: none
