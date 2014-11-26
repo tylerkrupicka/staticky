@@ -21,6 +21,7 @@ A simple static site builder written in Python. Create layouts to be populated w
 <li>[[post.link]] (link to the blog post)</li>
 </ul>
 <p>Using the [[post_thumb]] tag will insert the amount of post thumbnails specified in your config. [[post_thumb_all]] tag will insert all of your thumbnails (for creating an all posts page).</p>
+<p>I also added a post.thumbnail attribute for adding image thumbnails to each post. The new post function now asks you for a link.</p>
 
 
 <h2>Demo</h2>
