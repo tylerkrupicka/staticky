@@ -17,7 +17,7 @@ A simple static site builder written in Python. Create layouts to be populated w
 <li>[[post.title]]</li>
 <li>[[post.date]]</li>
 <li>[[post.content]] (all of the posts content html)</li>
-<li>[[post.thumbContent]] (post content html before the "<-- more -->" tag in the post file)</li>
+<li>[[post.thumbContent]] (post content html before the "< more >" tag in the post file)</li>
 <li>[[post.link]] (link to the blog post)</li>
 </ul>
 <p>Using the [[post_thumb]] tag will insert the amount of post thumbnails specified in your config. [[post_thumb_all]] tag will insert all of your thumbnails (for creating an all posts page).</p>
