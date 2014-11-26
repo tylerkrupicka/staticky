@@ -52,7 +52,9 @@ class Staticky:
         while True:
             time.sleep(2)
             self.getConfig()
+            self.loadElements()
             self.loadPosts()
+            self.createPosts()
             self.createPages()        
     
     def generate(self):
@@ -211,7 +213,7 @@ class Staticky:
         filename = ''.join(c for c in title if c in self.valid_chars)
         os.chdir("posts")
         file=open(filename+".txt", "a")
-        file.write("Title: " + title + "\n" + "Date: " + date + "\n" + "Thumbnail: " + thumbnail + "\n---\n")
+        file.write("Title: " + title + "\n" + "Date: " + date + "\n" + "Thumbnail: " + thumbnail + "\n---\n\n<!-- more -->\n")
         file.close()
         os.chdir("..")
         print("Post file created. Be careful editing the post header formatting.")
