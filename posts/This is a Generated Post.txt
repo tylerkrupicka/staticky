@@ -1,8 +1,0 @@
-Title: This is a Generated Post
-Date: 2014-07-27
-Thumbnail:  
----
-<p>
-Posts are edited in text files with basic HTML formatting, and then loaded in to the site as thumbnails (like this) and post pages.
-</p>
-<!-- more -->

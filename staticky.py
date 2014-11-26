@@ -224,7 +224,7 @@ class Staticky:
         print("Page created in the layouts folder.")
         
     def setup(self):
-        if len(os.listdir(".")) == 1:
+        if len(os.listdir(".")) <= 3:
             choice = input("Setup Directory? (y/n): ")
             if choice == "y":
                 os.mkdir("blog")

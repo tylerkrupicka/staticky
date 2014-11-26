@@ -1,8 +1,0 @@
-Title: This Site is a Resource
-Date: 2014-07-30
-Thumbnail: 
----
-<p>
-	This site and all its included files make up a functioning static blog, which is populated by the generator. I encourage you to look though the files to see how everything fits together.
-</p>
-<!-- more -->
