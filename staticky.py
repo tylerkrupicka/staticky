@@ -245,14 +245,20 @@ class Staticky:
                 #make files
                 #create config
                 file = open("config.txt",'a',encoding="utf8")
-                pL =("url: https://github.com/tylerkrupicka/staticky\n" +
-                    "year: 2014\n" +
-                    "title: Staticky\n" +
-                    "subtitle: Python static site builder\n" +
-                    "author: Tyler Krupicka\n" +
+                pL = ""
+
+                print("Setup configuration variables: ")
+                title = "title: " + input("Site Title: ") + "\n"
+                subtitle = "subtitle: " + input("Site Subtitle: ") + "\n"
+                url = "url: " + input("Site URL: ") + "\n"
+                author = "author: " + input("Author: ") + "\n"
+                about = "about: " + input("About Site: ") + "\n"
+                email = "email: " + input("Email: ") + "\n"
+                year = "year: " + input("Year: ") + "\n"
+                pL = title + subtitle + about + url + author + email 
+                
+                pL +=(
                     "num_thumb: 5\n" +
-                    "about: Staticky is a simple static site builder that uses a set of layouts and configuration variables to quickly populate page layouts with content.\n" +
-                    "email: none\n" +
                     "github: none\n" +
                     "twitter: none\n" +
                     "google+: none\n" +
